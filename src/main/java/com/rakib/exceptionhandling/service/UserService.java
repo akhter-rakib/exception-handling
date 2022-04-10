@@ -2,6 +2,7 @@ package com.rakib.exceptionhandling.service;
 
 import com.rakib.exceptionhandling.dto.UserRequest;
 import com.rakib.exceptionhandling.entity.User;
+import com.rakib.exceptionhandling.exception.UserNotFoundException;
 import com.rakib.exceptionhandling.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUser(int id) {
-        return userRepository.findByUserId(id);
+    public User getUser(int id) throws UserNotFoundException {
+        User user = userRepository.findByUserId(id);
+        if (user != null) {
+            return user;
+        } else {
+            throw new UserNotFoundException("user not found with id" + id, "01_001_001");
+        }
     }
 }

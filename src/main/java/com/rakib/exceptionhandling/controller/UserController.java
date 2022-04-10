@@ -2,6 +2,7 @@ package com.rakib.exceptionhandling.controller;
 
 import com.rakib.exceptionhandling.dto.UserRequest;
 import com.rakib.exceptionhandling.entity.User;
+import com.rakib.exceptionhandling.exception.UserNotFoundException;
 import com.rakib.exceptionhandling.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id) {
+    public ResponseEntity<User> getUser(@PathVariable int id) throws UserNotFoundException {
         return ResponseEntity.ok(userService.getUser(id));
     }
 }
